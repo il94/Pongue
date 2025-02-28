@@ -6,7 +6,7 @@
 	Link
 </h1>
 <p align="center">
-	https://pong.ilandols.com
+	https://pongue.ilandols.com
 </p>
 
 
