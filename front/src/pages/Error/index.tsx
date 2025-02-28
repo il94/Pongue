@@ -31,7 +31,7 @@ function Error() {
 		<Page>
 			<MainTitle>
 				<StyledLink to="/">
-					Retro Versus
+					Pongue
 				</StyledLink>
 			</MainTitle>
 			<CentralWindow>

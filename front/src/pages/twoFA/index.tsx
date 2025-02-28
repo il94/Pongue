@@ -180,7 +180,7 @@ function TwoFA() {
 		<Page>
 			<MainTitle>
 				<StyledLink to="/">
-					Retro Versus
+					Pongue
 				</StyledLink>
 			</MainTitle>
 			<CentralWindow>
