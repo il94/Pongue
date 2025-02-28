@@ -230,7 +230,7 @@ function Signup() {
 		<Page>
 			<MainTitle>
 				<StyledLink to="/">
-					Transcendance
+					Retro Versus
 				</StyledLink>
 			</MainTitle>
 			<CentralWindow>

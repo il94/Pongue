@@ -290,7 +290,7 @@ function SignupFT() {
 		<Page>
 			<MainTitle>
 				<StyledLink to="/">
-					Transcendance
+					Retro Versus
 				</StyledLink>
 			</MainTitle>
 			<CentralWindow>

@@ -54,7 +54,7 @@ function Logo({ social }: PropsLogo) {
 			{
 				social ?
 				<LogoFull tabIndex={0}>
-					Transcendence
+					RETRO VERSUS
 				</LogoFull>
 				:
 				<LogoReduced

@@ -11,7 +11,7 @@ function NotFound() {
 		<Page>
 			<MainTitle>
 				<StyledLink to="/">
-					Transcendance
+					Retro Versus
 				</StyledLink>
 			</MainTitle>
 			<CentralWindow>
