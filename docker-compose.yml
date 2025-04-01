@@ -27,8 +27,9 @@ services:
       - db
     # volumes:
     #   - ./back/src:/app/src
-    #   - ./back/defaultChannelAvatar:/app/defaultChannelAvatar
-    #   - ./back/defaultUserAvatars:/app/defaultUserAvatars
+      - ./back/defaultChannelAvatar:/app/defaultChannelAvatar
+      - ./back/defaultUserAvatars:/app/defaultUserAvatars
+      - ./back/uploads:/app/uploads
     #   - ./back/prisma:/app/prisma
     #   - ./back/package.json:/app/package.json
     #   - ./back/package-lock.json:/app/package-lock.json
