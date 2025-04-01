@@ -6,10 +6,12 @@ services:
     image: postgres:16.1
     restart: always
     env_file: ./back/.env
+    ports:
+      - '5432:5432'
     expose:
       - '5432'
-    networks:
-      - transcendence
+    # networks:
+    #   - transcendence
     volumes:
       - db-data:/var/lib/postgresql/data
 
@@ -18,18 +20,18 @@ services:
       context: ./back
       dockerfile: ./Dockerfile
     container_name: api_back
-    ports:
-      - '3333:3333'
-      - '5555:5555'
+    # ports:
+    #   - '3333:3333'
+    #   - '5555:5555'
     depends_on:
       - db
-    volumes:
-      - ./back/src:/app/src
-      - ./back/defaultChannelAvatar:/app/defaultChannelAvatar
-      - ./back/defaultUserAvatars:/app/defaultUserAvatars
-      - ./back/prisma:/app/prisma
-      - ./back/package.json:/app/package.json
-      - ./back/package-lock.json:/app/package-lock.json
+    # volumes:
+    #   - ./back/src:/app/src
+    #   - ./back/defaultChannelAvatar:/app/defaultChannelAvatar
+    #   - ./back/defaultUserAvatars:/app/defaultUserAvatars
+    #   - ./back/prisma:/app/prisma
+    #   - ./back/package.json:/app/package.json
+    #   - ./back/package-lock.json:/app/package-lock.json
 
     networks:
       - transcendence
@@ -39,27 +41,25 @@ services:
       context: ./front
       dockerfile: ./Dockerfile
     container_name: api_front
-    ports:
-      - '4173:4173'
-      - '5173:5173'
+    # ports:
+    #   - '4173:4173'
+    #   - '5173:5173'
     depends_on:
       - back
-    volumes:
-      - ./front/src:/app/src
-      - ./front/index.html:/app/index.html
-      - ./front/style.css:/app/style.css
-      - ./front/package.json:/app/package.json
-      - ./front/package-lock.json:/app/package-lock.json
-      - ./front/tsconfig.json:/app/tsconfig.json
-    networks:
-      - transcendence
+    # volumes:
+    #   - ./front/src:/app/src
+    #   - ./front/index.html:/app/index.html
+    #   - ./front/style.css:/app/style.css
+    #   - ./front/package.json:/app/package.json
+    #   - ./front/package-lock.json:/app/package-lock.json
+    #   - ./front/tsconfig.json:/app/tsconfig.json
+    # networks:
+    #   - transcendence
 
 volumes:
   db-data:
     name: db-data
 
-networks:
-  transcendence:
-    name: ft_transcendence
-
-      
+# networks:
+#   transcendence:
+#     name: ft_transcendence
