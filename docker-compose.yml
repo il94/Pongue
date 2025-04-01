@@ -25,7 +25,7 @@ services:
     #   - '5555:5555'
     depends_on:
       - db
-    # volumes:
+    volumes:
     #   - ./back/src:/app/src
       - ./back/defaultChannelAvatar:/app/defaultChannelAvatar
       - ./back/defaultUserAvatars:/app/defaultUserAvatars
