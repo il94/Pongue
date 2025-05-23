@@ -7,14 +7,13 @@ services:
     restart: always
     env_file: ./back/.env
     ports:
-      - '5000:5000'
+      - '5000:5432'
     expose:
       - '5000'
     # networks:
     #   - transcendence
     volumes:
       - db-data:/var/lib/postgresql/data
-    command: -p 5000
 
   back:
     build:
