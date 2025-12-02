@@ -5,6 +5,12 @@ services:
     container_name: database
     image: postgres:16.1
     restart: always
+    environment:  
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      DATABASE_URL: ${DATABASE_URL}
     ports:
       - '5000:5432'
     expose:
@@ -19,6 +25,20 @@ services:
       context: ./back
       dockerfile: ./Dockerfile
     container_name: api_back
+    environment:  
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      DATABASE_URL: ${DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      FORTYTWO_APP_ID: ${FORTYTWO_APP_ID}
+      FORTYTWO_APP_SECRET: ${FORTYTWO_APP_SECRET}
+      AUTH_APP_NAME: ${AUTH_APP_NAME}
+      URL_FRONT: ${URL_FRONT}
+      URL_BACK: ${URL_BACK}
+      NODE_ENV: ${NODE_ENV}
+      DOMAIN: ${DOMAIN}
     # ports:
     #   - '3333:3333'
     #   - '5555:5555'
@@ -40,6 +60,10 @@ services:
       context: ./front
       dockerfile: ./Dockerfile
     container_name: api_front
+    environment:  
+      VITE_IP_BACK: ${VITE_IP_BACK}
+      VITE_PORT_BACK: ${VITE_PORT_BACK}
+      VITE_URL_BACK: ${VITE_URL_BACK}
     # ports:
     #   - '4173:4173'
     #   - '5173:5173'
