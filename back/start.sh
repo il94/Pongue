@@ -2,7 +2,7 @@
 #set -eux
 
 npx prisma generate
-npx prisma migrate dev --name init
+npx prisma migrate prod --name init
 npm run build
-#npm run start:prod
-npm run start:dev
+npm run start:prod
+# npm run start:dev
