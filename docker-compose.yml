@@ -37,7 +37,6 @@ services:
       AUTH_APP_NAME: ${AUTH_APP_NAME}
       URL_FRONT: ${URL_FRONT}
       URL_BACK: ${URL_BACK}
-      NODE_ENV: ${NODE_ENV}
       DOMAIN: ${DOMAIN}
     # ports:
     #   - '3333:3333'
