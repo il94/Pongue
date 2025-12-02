@@ -12,7 +12,8 @@ COPY . .
 
 COPY defaultChannelAvatar ./defaultChannelAvatar
 COPY defaultUserAvatars ./defaultUserAvatars
-RUN mkdir -p uploads && chmod 755 uploads
+RUN mkdir -p uploads/users uploads/channels && \
+	chmod -R 755 uploads
 
 COPY ./start.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/start.sh
