@@ -171,9 +171,14 @@ export class AuthService {
 	async return42Response(user: { usernameId: string, avatar: string, isNew: boolean } | Partial<User>, res: Response ) {
 
 		const cookieData = {
-			secure: process.env.NODE_ENV === 'production',
-			domain: process.env.NODE_ENV === 'production' ? process.env.DOMAIN : undefined,
-		}
+      secure:
+        process.env.NODE_ENV === 'production',
+      domain:
+        process.env.NODE_ENV === 'production'
+          ? process.env.DOMAIN
+          : undefined,
+      sameSite: "lax"
+    };
 
 		try {
 	
@@ -220,12 +225,10 @@ export class AuthService {
 				const fiveMin = Date.now() + 5 * 60 * 1000;
 				res.cookie('usernameId', user.usernameId, {
 					expires: new Date(fiveMin),
-					sameSite: 'lax',
 					...cookieData
 				})
 				.cookie("avatar", user.avatar, {
 					expires: new Date(fiveMin),
-					sameSite: 'lax',
 					...cookieData
 				})
 				.redirect(`${process.env.URL_FRONT}/signup42`)
