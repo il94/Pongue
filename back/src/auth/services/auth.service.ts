@@ -177,7 +177,7 @@ export class AuthService {
         process.env.NODE_ENV === 'production'
           ? process.env.DOMAIN
           : undefined,
-      sameSite: "lax"
+      sameSite: "lax" as const
     };
 
 		try {
