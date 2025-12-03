@@ -170,13 +170,10 @@ export class AuthService {
 	// Selon la reponse de l'api 42, connecte le user OU le redirige vers le twoFA OU lui cree un compte
 	async return42Response(user: { usernameId: string, avatar: string, isNew: boolean } | Partial<User>, res: Response ) {
 		
+		const isProd = process.env.DOMAIN && process.env.DOMAIN[0] === '.'
 		const cookieData = {
-      secure:
-        process.env.NODE_ENV === 'production',
-      domain:
-        process.env.NODE_ENV === 'production'
-          ? process.env.DOMAIN
-          : undefined,
+      secure: isProd,
+      domain: process.env.DOMAIN,
       sameSite: "lax" as const
     };
 
