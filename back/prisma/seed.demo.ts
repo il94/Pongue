@@ -35,15 +35,15 @@ const DEMO_USERNAMES = (process.env.DEMO_USERNAMES ?? '')
 	.map((username) => username.trim())
 	.filter((username) => username.length !== 0)
 
-const COMPANION_USERNAMES = ['zephyr', 'milo', 'nova']
+const COMPANION_USERNAMES = ['comet', 'blitz', 'echo']
 
 const CHANNEL_NAME = 'arena'
 
 const MESSAGES = [
-	{ author: 'zephyr', content: "Welcome to the arena !" },
-	{ author: 'milo', content: "Who's up for a game ?" },
-	{ author: 'nova', content: "Careful, zephyr never loses" },
-	{ author: 'zephyr', content: "Send an invitation and find out" }
+	{ author: 'comet', content: "Welcome to the arena !" },
+	{ author: 'blitz', content: "Who's up for a game ?" },
+	{ author: 'echo', content: "Careful, comet never loses" },
+	{ author: 'comet', content: "Send an invitation and find out" }
 ]
 
 /* ============================== UTILS ===================================== */
@@ -60,6 +60,20 @@ async function setDefaultAvatar(userId: number, avatarName: string) {
 		await mkdir(uploadUserPath, { recursive: true })
 
 	await fs.promises.writeFile(uploadUserPath + userId.toString() + '_', defaultAvatar)
+}
+
+// Copie l'avatar par defaut des channels dans le dossier des avatars uploades
+async function setDefaultChannelAvatar(channelId: number) {
+
+	const currentDirectory = process.cwd()
+
+	const defaultAvatar = await fs.promises.readFile(currentDirectory + "/defaultChannelAvatar/default_channel.png")
+
+	const uploadChannelPath = currentDirectory + "/uploads/channels/"
+	if (!fs.existsSync(uploadChannelPath))
+		await mkdir(uploadChannelPath, { recursive: true })
+
+	await fs.promises.writeFile(uploadChannelPath + channelId.toString() + '_', defaultAvatar)
 }
 
 // Cree le user s'il n'existe pas, sans toucher a ses donnees s'il existe deja
@@ -213,7 +227,15 @@ async function seedDemo() {
 	const hash = await argon.hash(process.env.DEMO_PASSWORD)
 
 	// Cree les comptes de demonstration, avec un avatar different chacun
-	const avatars = ['default_blue.png', 'default_red.png', 'default_green.png', 'default_yellow.png']
+	const avatars = [
+		'default_blue.png',
+		'default_red.png',
+		'default_green.png',
+		'default_yellow.png',
+		'default_purple.png',
+		'default_pink.png',
+		'default_black.png'
+	]
 	const demoUsers = []
 	for (const [index, username] of DEMO_USERNAMES.entries())
 	{
@@ -250,6 +272,16 @@ async function seedDemo() {
 				name: CHANNEL_NAME,
 				avatar: '',
 				type: ChannelStatus.PUBLIC
+			}
+		})
+
+		await setDefaultChannelAvatar(channel.id)
+		channel = await prisma.channel.update({
+			where: {
+				id: channel.id
+			},
+			data: {
+				avatar: `${process.env.URL_BACK}/uploads/channels/${channel.id}_`
 			}
 		})
 	}
