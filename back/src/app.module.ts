@@ -25,7 +25,7 @@ import { UsersService } from './auth/services/users.service';
     BlockedsModule,
 	  PongModule,
 	  ServeStaticModule.forRoot({
-		rootPath: join(__dirname, '..', "/"),
+		rootPath: join(process.cwd(), "/"),
 		serveRoot: '/',
 	}),
   ],
