@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
-    "ilandols-demo-badge": "^0.4.2",
+    "ilandols-demo-badge": "^0.4.3",
     "js-cookie": "^3.0.5",
     "react": "^16.14.0",
     "react-custom-scrollbars": "^4.2.1",
