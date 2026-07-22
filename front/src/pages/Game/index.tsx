@@ -50,6 +50,7 @@ import Chat from '../../components/Chat'
 import Card from '../../components/Card'
 import SettingsMenu from '../../components/SettingsMenu'
 import TwoFaMenu from '../../components/TwoFaMenu'
+import DemoWelcomeMenu, { DEMO_WELCOME_STORAGE_KEY } from '../../components/DemoWelcomeMenu'
 import ContextualMenu from '../../components/ContextualMenus/ContextualMenu'
 import SecondaryContextualMenu from '../../components/ContextualMenus/SecondaryContextualMenu'
 import PopupError from '../../components/PopupError'
@@ -83,6 +84,7 @@ import {
 } from '../../utils/emptyObjects'
 
 import breakpoints from '../../utils/breakpoints'
+import { isDemoUser } from '../../utils/demo'
 
 function Game() {
 
@@ -288,6 +290,7 @@ function Game() {
 
 	const [settings, displaySettingsMenu] = useState<boolean>(false)
 	const [twoFAMenu, displayTwoFAMenu] = useState<boolean>(false)
+	const [demoWelcomeMenu, displayDemoWelcomeMenu] = useState<boolean>(false)
 
 	/* =============================== DISPLAY ================================== */
 
@@ -331,6 +334,11 @@ function Game() {
 			window.removeEventListener('resize', closeContextualMenus);
 		}
 	}, [])
+
+	useEffect(() => {
+		if (isDemoUser(userAuthenticate.username) && sessionStorage.getItem(DEMO_WELCOME_STORAGE_KEY) !== 'true')
+			displayDemoWelcomeMenu(true)
+	}, [userAuthenticate.username])
 
 	/* =========================== HANDLE SOCKETS =============================== */
 
@@ -420,6 +428,11 @@ function Game() {
 						{
 							popupError.display &&
 							<PopupError message={popupError.message}/>
+						}
+						{
+							demoWelcomeMenu &&
+							<DemoWelcomeMenu
+								displayDemoWelcomeMenu={displayDemoWelcomeMenu} />
 						}
 						<LeftGameWrapper $social={social}>
 							<Logo social={social} />
