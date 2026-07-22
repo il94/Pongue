@@ -8,7 +8,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy, Api42Strategy } from './strategy';
 import { SessionSerializer } from "./Serializer";
 import { UsersController } from "./controllers/users.controller";
-import { Api42AuthGuard, JwtGuard } from "./guards/auth.guard";
+import { Api42AuthGuard, DemoGuard, JwtGuard } from "./guards/auth.guard";
 import { HttpModule } from "@nestjs/axios";
 import { AppGateway } from "src/app.gateway";
 import { APP_GUARD } from '@nestjs/core';
@@ -34,6 +34,11 @@ import { APP_GUARD } from '@nestjs/core';
 		{
 			provide: APP_GUARD,
 			useClass: JwtGuard,
+		},
+		// Doit rester apres le JwtGuard, qui renseigne le user de la requete
+		{
+			provide: APP_GUARD,
+			useClass: DemoGuard,
 		},
 		AppGateway
 	],

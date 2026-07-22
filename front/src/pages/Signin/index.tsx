@@ -12,6 +12,8 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 
 import styled from 'styled-components'
 
+import DemoBadge from '../../components/DemoBadge'
+
 import StyledLink from '../../componentsLibrary/StyledLink/Index'
 import Button from '../../componentsLibrary/Button'
 import LinkButtonImage from '../../componentsLibrary/LinkButtonImage'
@@ -268,6 +270,7 @@ function Signin() {
 					}
 				</FTRedirectWrapper>
 			</CentralWindow>
+			<DemoBadge />
 		</Page>
 	)
 }

@@ -21,6 +21,7 @@
     "cpFolders": "cp -r uploads ./dist && cp -r defaultChannelAvatar ./dist && cp -r defaultUserAvatars ./dist",
     "setDatabase": "npx prisma generate && npx prisma migrate deploy &",
     "deploy": "npm install && npm run setDatabase && npm run build && npm run cpFolders && npm run start:prod",
+    "seed:demo": "npx ts-node prisma/seed.demo.ts",
     "studio": "npx prisma studio"
   },
   "dependencies": {

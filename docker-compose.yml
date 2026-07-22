@@ -38,6 +38,8 @@ services:
       URL_FRONT: ${URL_FRONT}
       URL_BACK: ${URL_BACK}
       DOMAIN: ${DOMAIN}
+      DEMO_USERNAMES: ${DEMO_USERNAMES}
+      DEMO_PASSWORD: ${DEMO_PASSWORD}
     # ports:
     #   - '3333:3333'
     #   - '5555:5555'
@@ -58,8 +60,13 @@ services:
     build:
       context: ./front
       dockerfile: ./Dockerfile
+      # Vite inline les VITE_* au build, ils doivent donc arriver en build args
+      args:
+        VITE_DEMO_ENABLED: ${VITE_DEMO_ENABLED}
+        VITE_DEMO_USERNAMES: ${VITE_DEMO_USERNAMES}
+        VITE_DEMO_PASSWORD: ${VITE_DEMO_PASSWORD}
     container_name: api_front
-    environment:  
+    environment:
       VITE_IP_BACK: ${VITE_IP_BACK}
       VITE_PORT_BACK: ${VITE_PORT_BACK}
       VITE_URL_BACK: ${VITE_URL_BACK}

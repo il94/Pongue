@@ -15,6 +15,19 @@ export const VALID_UPLOADS_MIME_TYPES = [
 	'image/webp'
 ];
 
+// Usernames des comptes de demonstration, partages par les visiteurs
+export const DEMO_USERNAMES = (process.env.DEMO_USERNAMES ?? '')
+	.split(',')
+	.map((username) => username.trim())
+	.filter((username) => username.length !== 0)
+
+// Verifie si le username fourni est celui d'un compte de demonstration
+export function isDemoUser(username?: string) {
+	if (!username)
+		return false
+	return DEMO_USERNAMES.includes(username)
+}
+
 
 @Injectable()
 export class AppService {

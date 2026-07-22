@@ -8,6 +8,7 @@ import { AuthDto } from "../dto/auth.dto";
 import { CreateUserDto } from "../dto/users.dto";
 import { authenticator } from "otplib";
 import { AppGateway } from 'src/app.gateway';
+import { isDemoUser } from 'src/app.service';
 import { toDataURL } from 'qrcode';
 import { Response } from "express";
 import { Socket } from "socket.io";
@@ -58,7 +59,12 @@ export class AuthService {
 				throw new NotFoundException("User not found")
 
 			if (user.status != UserStatus.OFFLINE)
+			{
+				// Oriente le visiteur vers l'autre compte de demonstration
+				if (isDemoUser(user.username))
+					throw new ForbiddenException("This demo account is in use, try the other one")
 				throw new ForbiddenException("already connected")
+			}
 
 			// Verifie si le mot de passe fourni est correct
 			const pwdMatch = await argon.verify(user.hash, userDatas.hash)

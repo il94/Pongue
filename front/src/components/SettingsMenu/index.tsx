@@ -34,6 +34,10 @@ import {
 } from "../../utils/emptyObjects"
 
 import {
+	isDemoUser
+} from "../../utils/demo"
+
+import {
 	ErrorMessage,
 	VerticalSetting,
 	VerticalSettingWrapper,
@@ -51,9 +55,17 @@ function SettingsMenu({ displaySettingsMenu, displayTwoFAMenu }: PropsSettingsMe
 	const { userAuthenticate } = useContext(InteractionContext)!
 	const { displayPopupError } = useContext(DisplayContext)!
 
+	// Les comptes de demonstration sont partages, ils ne peuvent pas modifier
+	// leurs donnees sous peine d'etre inaccessibles au visiteur suivant
+	const demoAccount = isDemoUser(userAuthenticate.username)
+
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		try {
 			event.preventDefault()
+			if (demoAccount) {
+				displaySettingsMenu(false)
+				return
+			}
 			if (username.value.length === 0) {
 				setUsername({
 					value: '',
@@ -264,6 +276,12 @@ function SettingsMenu({ displaySettingsMenu, displayTwoFAMenu }: PropsSettingsMe
 					onSubmit={handleSubmit}
 					autoComplete="off"
 					spellCheck="false">
+					{
+						demoAccount &&
+						<ErrorMessage fontSize={12}>
+							Settings are disabled on the demo account
+						</ErrorMessage>
+					}
 					<VerticalSetting fontSize={15} $alignItems="start">
 						Username
 						<VerticalSettingWrapper>
@@ -272,7 +290,9 @@ function SettingsMenu({ displaySettingsMenu, displayTwoFAMenu }: PropsSettingsMe
 							onBlur={handleInputUsernameBlur}
 							type="text" value={username.value as string}
 							fontSize={16}
-							$error={username.error} />
+							$error={username.error}
+							$disable={demoAccount}
+							readOnly={demoAccount} />
 						<ErrorMessage fontSize={10} >
 							{username.error && username.errorMessage}
 						</ErrorMessage>
@@ -289,7 +309,9 @@ function SettingsMenu({ displaySettingsMenu, displayTwoFAMenu }: PropsSettingsMe
 							placeholder={placeHolder}
 							value={password.value as string}
 							fontSize={16}
-							$error={password.error} />
+							$error={password.error}
+							$disable={demoAccount}
+							readOnly={demoAccount} />
 						{
 							password.errorMessage ?
 							<>
@@ -342,6 +364,7 @@ function SettingsMenu({ displaySettingsMenu, displayTwoFAMenu }: PropsSettingsMe
 							<Button
 								onClick={() => displayTwoFAMenu(true)}
 								type="button" width={200}
+								disabled={demoAccount}
 								alt="Set 2FA button"
 								title={ twoFA ? "Disable" : "Enable" }
 								style={{ alignSelf: "center" }}>
@@ -349,13 +372,17 @@ function SettingsMenu({ displaySettingsMenu, displayTwoFAMenu }: PropsSettingsMe
 							</Button>
 						</VerticalSettingWrapper>
 					</VerticalSetting>
-					<SelectAvatar
-						avatar={avatar}
-						setAvatar={setAvatar}
-						displayPopupError={displayPopupError} />
+					{
+						!demoAccount &&
+						<SelectAvatar
+							avatar={avatar}
+							setAvatar={setAvatar}
+							displayPopupError={displayPopupError} />
+					}
 						<div style={{ height: "5px" }} />
 					<Button
 						type="submit" fontSize={"19px"}
+						disabled={demoAccount}
 						alt="Save button" title="Save changes">
 						Save
 					</Button>

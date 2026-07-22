@@ -10,6 +10,8 @@ import {
 	useNavigate
 } from 'react-router'
 
+import DemoBadge from '../../components/DemoBadge'
+
 import StyledLink from '../../componentsLibrary/StyledLink/Index'
 import Button from '../../componentsLibrary/Button'
 import InputText from '../../componentsLibrary/InputText'
@@ -323,6 +325,7 @@ function Signup() {
 				</div>
 				<div style={{ height: "15px" }} />
 			</CentralWindow>
+			<DemoBadge />
 		</Page>
 	)
 }
