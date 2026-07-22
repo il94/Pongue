@@ -10,6 +10,8 @@ import {
 	useNavigate
 } from 'react-router'
 
+import DemoBadge from '../../components/DemoBadge'
+
 import LinkButton from '../../componentsLibrary/LinkButton'
 import StyledLink from '../../componentsLibrary/StyledLink/Index'
 import ActiveText from '../../componentsLibrary/ActiveText/Index'
@@ -175,6 +177,10 @@ function Home() {
 						</ButtonsWrapper>
 				}
 			</CentralWindow>
+			{
+				!token &&
+				<DemoBadge />
+			}
 		</Page>
 	)
 }
