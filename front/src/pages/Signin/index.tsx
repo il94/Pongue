@@ -1,3 +1,4 @@
+import { trackEvent } from "../../lib/analytics"
 import {
 	ChangeEvent,
 	FormEvent,
@@ -115,6 +116,8 @@ function Signin() {
 			}
 
 			const signinResponse: AxiosResponse<PropsSigninResponse> = await axios.post(`${url}/auth/signin`, user)
+
+			trackEvent("signin")
 
 			if ('twoFA' in signinResponse.data) {
 				navigate("/twofa", {

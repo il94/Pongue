@@ -1,3 +1,4 @@
+import { trackEvent } from "../../../lib/analytics"
 import {
 	Dispatch,
 	MouseEvent,
@@ -119,6 +120,8 @@ function ContextualMenu({ type, contextualMenuPosition, displaySecondaryContextu
 					}
 				})
 
+				trackEvent("channel-create", { type: "mp" })
+
 				const newChannelMP: Channel = {
 					...newChannelMPResponse.data,
 					messages: [],
@@ -188,6 +191,8 @@ function ContextualMenu({ type, contextualMenuPosition, displaySecondaryContextu
 					'Authorization': `Bearer ${token}`
 				}
 			})
+
+			trackEvent("game-invite-send")
 		}
 		catch (error) {
 			if (axios.isAxiosError(error)) {
@@ -214,6 +219,7 @@ function ContextualMenu({ type, contextualMenuPosition, displaySecondaryContextu
 				'Authorization': `Bearer ${token}`
 			}
 		})
+			trackEvent("spectate-start")
 		}
 		catch (error) {
             if (axios.isAxiosError(error)) {
@@ -243,6 +249,7 @@ function ContextualMenu({ type, contextualMenuPosition, displaySecondaryContextu
 					...prevState,
 					friends: [...prevState.friends, userTarget]
 				}))
+				trackEvent("friend-add")
 			}
 			else {
 				await axios.delete(`${url}/friends/${userTarget.id}`, {
@@ -254,6 +261,7 @@ function ContextualMenu({ type, contextualMenuPosition, displaySecondaryContextu
 					...prevState,
 					friends: prevState.friends.filter((friend) => friend.id !== userTarget.id)
 				}))
+				trackEvent("friend-remove")
 			}
 		}
 		catch (error) {
@@ -284,6 +292,7 @@ function ContextualMenu({ type, contextualMenuPosition, displaySecondaryContextu
 					...prevState,
 					blockeds: [...prevState.blockeds, userTarget]
 				}))
+				trackEvent("user-block")
 			}
 			else {
 				await axios.delete(`${url}/blockeds/${userTarget.id}`, {
@@ -295,6 +304,7 @@ function ContextualMenu({ type, contextualMenuPosition, displaySecondaryContextu
 					...prevState,
 					blockeds: prevState.blockeds.filter((friend) => friend.id !== userTarget.id)
 				}))
+				trackEvent("user-unblock")
 			}
 		}
 		catch (error) {
@@ -337,6 +347,7 @@ function ContextualMenu({ type, contextualMenuPosition, displaySecondaryContextu
 						}
 					})
 			}
+			trackEvent("channel-role-set")
 		}
 		catch (error) {
 			if (axios.isAxiosError(error)) {
@@ -364,6 +375,7 @@ function ContextualMenu({ type, contextualMenuPosition, displaySecondaryContextu
 					'Authorization': `Bearer ${token}`
 				}
 			})
+			trackEvent("channel-mute")
 				
 		}
 		catch (error) {
@@ -432,6 +444,7 @@ function ContextualMenu({ type, contextualMenuPosition, displaySecondaryContextu
 						}
 					})
 			}
+			trackEvent("channel-role-set")
 		}
 		catch (error) {
 			if (axios.isAxiosError(error)) {

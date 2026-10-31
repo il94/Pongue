@@ -1,3 +1,4 @@
+import { trackEvent } from "../../lib/analytics"
 import {
 	ChangeEvent,
 	FormEvent,
@@ -96,6 +97,8 @@ function Signup() {
 			})
 
 			localStorage.setItem("access_token", signupResponse.data.access_token)
+
+			trackEvent("signup", { method: "local" })
 
 			navigate("/")
 		}

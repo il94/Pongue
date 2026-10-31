@@ -1,3 +1,4 @@
+import { trackEvent } from "../../lib/analytics"
 import {
 	useContext,
 	useState
@@ -46,6 +47,7 @@ function Logo({ social }: PropsLogo) {
 					'Authorization': `Bearer ${token}`
 				}
 				})
+				trackEvent("game-cancel")
 				navigate("/")
 			}
 			else

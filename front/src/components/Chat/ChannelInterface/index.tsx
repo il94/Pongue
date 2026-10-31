@@ -1,3 +1,4 @@
+import { trackEvent } from "../../../lib/analytics"
 import {
 	ChangeEvent,
 	Dispatch,
@@ -116,6 +117,7 @@ function ChannelInterface({ setBannerName, chatWindowState, setChatWindowState }
 							'Content-Type': 'multipart/form-data'
 						}
 					})
+					trackEvent("channel-settings-update")
 				}
 				else
 					setChatWindowState(chatWindowStatus.CHANNEL)
@@ -142,6 +144,8 @@ function ChannelInterface({ setBannerName, chatWindowState, setChatWindowState }
 						'Content-Type': 'multipart/form-data'
 					}
 				})
+
+				trackEvent("channel-create", { type: channelType })
 
 				const newChannel: Channel = {
 					id: postChannelResponse.data.id,

@@ -1,3 +1,4 @@
+import { trackEvent } from "../../lib/analytics"
 import {
 	ChangeEvent,
 	Dispatch,
@@ -101,6 +102,10 @@ function SettingsMenu({ displaySettingsMenu, displayTwoFAMenu }: PropsSettingsMe
 						'Authorization': `Bearer ${token}`,
 						'Content-Type': 'multipart/form-data'
 					}
+				})
+				trackEvent("profile-update", {
+					avatar: !!avatar.toUpload,
+					username: newDatas.username !== undefined,
 				})
 			}
 			displaySettingsMenu(false)

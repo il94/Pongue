@@ -1,3 +1,4 @@
+import { trackEvent } from "../../../../../lib/analytics"
 import {
 	useContext
 } from "react"
@@ -64,6 +65,7 @@ function ContactInvitation({ sender, target, initialStatus, idMsg, idChan }: Pro
 				'Authorization': `Bearer ${token}`
 			}
 		})
+			trackEvent("spectate-start")
 		}
 		catch (error) {
             if (axios.isAxiosError(error)) {
@@ -122,12 +124,15 @@ function ContactInvitation({ sender, target, initialStatus, idMsg, idChan }: Pro
 						{
 							(!gameState && !searching) ?
 							<ButtonChallenge
-								onClick={() => handleClickChallengeStatus(challengeStatus.IN_PROGRESS, idMsg, idChan, {
-									userAuthenticate,
-									displayPopupError,
-									token,
-									url
-								})}
+								onClick={() => {
+									trackEvent("game-invite-accept")
+									handleClickChallengeStatus(challengeStatus.IN_PROGRESS, idMsg, idChan, {
+										userAuthenticate,
+										displayPopupError,
+										token,
+										url
+									})
+								}}
 								color={colors.buttonGreen}
 								alt="Accept button" title="Accept">
 								Accept

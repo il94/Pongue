@@ -1,3 +1,4 @@
+import { trackEvent } from "../../../lib/analytics"
 import {
 	Dispatch,
 	SetStateAction,
@@ -60,6 +61,7 @@ function Banner({ bannerName, chatWindowState, setChatWindowState }: PropsBanner
 					'Authorization': `Bearer ${token}`
 				}
 			})
+			trackEvent("channel-delete")
 		}
 		catch (error) {
 			if (axios.isAxiosError(error)) {
@@ -84,6 +86,7 @@ function Banner({ bannerName, chatWindowState, setChatWindowState }: PropsBanner
 					'Authorization': `Bearer ${token}`
 				}
 			})
+			trackEvent("channel-leave")
 		}
 		catch (error) {
 			if (axios.isAxiosError(error)) {

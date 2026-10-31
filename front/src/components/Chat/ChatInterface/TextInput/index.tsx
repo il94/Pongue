@@ -1,3 +1,4 @@
+import { trackEvent } from "../../../../lib/analytics"
 import {
 	ChangeEvent,
 	FocusEvent,
@@ -21,6 +22,7 @@ import {
 } from "../../../../utils/types"
 
 import {
+	ChannelType,
 	messageType
 } from "../../../../utils/status"
  
@@ -55,6 +57,7 @@ function TextInput() {
 					'Authorization': `Bearer ${token}`
 				}
 			})
+			trackEvent(channelTarget.type === ChannelType.MP ? "dm-send" : "message-send")
 		}
 		catch (error) {
 			if (axios.isAxiosError(error)) {

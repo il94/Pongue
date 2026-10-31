@@ -1,3 +1,4 @@
+import { trackEvent } from "../../../lib/analytics"
 import {
 	Dispatch,
 	SetStateAction,
@@ -131,6 +132,7 @@ function ResultsSearchBar({ value, displayChat }: PropsSearchBar) {
 					...prevState,
 					friends: [...prevState.friends, user]
 				}))
+				trackEvent("friend-add")
 			}
 		}
 		catch (error) {
@@ -174,6 +176,7 @@ function ResultsSearchBar({ value, displayChat }: PropsSearchBar) {
 							'Authorization': `Bearer ${token}`
 						}
 					})
+					trackEvent("channel-join")
 					setUserAuthenticate((prevState: UserAuthenticate) => ({
 						...prevState,
 						channels: [...prevState.channels, channelWithRelationsResponse.data]

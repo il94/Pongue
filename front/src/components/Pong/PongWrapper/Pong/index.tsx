@@ -1,3 +1,4 @@
+import { trackEvent } from "../../../../lib/analytics"
 import  {useState, useEffect, KeyboardEvent, useRef, useContext, Dispatch, SetStateAction } from 'react'
 
 import styled from 'styled-components'
@@ -146,6 +147,7 @@ function Pong({ width, height, score, setScore, setGameState, setSpectate, spect
 			})
 			setGameState(false)
 			setSpectate(false)
+			trackEvent("spectate-stop")
 		}
 		catch (error) {
             if (axios.isAxiosError(error)) {
@@ -192,6 +194,7 @@ function Pong({ width, height, score, setScore, setGameState, setSpectate, spect
 				return;
 			}
 			const msg = myScore === 11 ? "Victory !" : "Defeat"
+			trackEvent("game-end", { result: myScore === 11 ? "win" : "lose" })
 			setEndMesage({display: true, message: msg})
 			setTimeout(() => {
 				setEndMesage({...endMessage, display: false})

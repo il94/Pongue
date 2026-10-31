@@ -1,3 +1,4 @@
+import { trackEvent } from "../../lib/analytics"
 import {
 	ChangeEvent,
 	Dispatch,
@@ -85,6 +86,7 @@ function TwoFaMenu({ displayTwoFAMenu }: PropsTwoFaMenu) {
 						'Authorization': `Bearer ${token}`
 					}
 				})
+				trackEvent("2fa-enable")
 				setUserAuthenticate((prevState: UserAuthenticate) => ({
 					...prevState,
 					twoFA: true
@@ -99,6 +101,7 @@ function TwoFaMenu({ displayTwoFAMenu }: PropsTwoFaMenu) {
 						'Authorization': `Bearer ${token}`
 					}
 				})
+				trackEvent("2fa-disable")
 				setUserAuthenticate((prevState: UserAuthenticate) => ({
 					...prevState,
 					twoFA: false

@@ -1,3 +1,4 @@
+import { trackEvent } from "../../lib/analytics"
 import {
 	SetStateAction,
 	Dispatch,
@@ -67,6 +68,7 @@ function Profile({ card, displayCard, setCardPosition, settings, displaySettings
 				}
 			}) 
 			
+			trackEvent("logout")
 			localStorage.removeItem('access_token')
 			navigate("/")
 		}

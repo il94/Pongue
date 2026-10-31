@@ -1,3 +1,4 @@
+import { trackEvent } from "../../lib/analytics"
 import {
 	ChangeEvent,
 	FormEvent,
@@ -97,6 +98,7 @@ function TwoFA() {
 			})
 			 
 			localStorage.setItem("access_token", authTwoFAResponse.data.access_token)
+			trackEvent("2fa-authenticate")
 			navigate("/")
 		}
 		catch (error) {

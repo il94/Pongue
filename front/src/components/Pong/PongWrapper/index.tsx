@@ -1,3 +1,4 @@
+import { trackEvent } from "../../../lib/analytics"
 import { useRef, useState, useContext, useEffect } from "react"
 import styled from "styled-components"
 import axios, { AxiosError } from "axios"
@@ -75,6 +76,7 @@ function PongWrapper({social}: any) {
 				}
 			})
 			setDifficultyChoose(true)
+			trackEvent("matchmaking-start")
 		}
 		catch (error) {
             if (axios.isAxiosError(error)) {
@@ -102,6 +104,7 @@ function PongWrapper({social}: any) {
 			})
 			setSearching(false)
 			setDifficultyChoose(false)
+			trackEvent("matchmaking-cancel")
 		}
 		catch(error)
 		{
@@ -114,11 +117,13 @@ function PongWrapper({social}: any) {
 		setSearching(false)
 		setDifficultyChoose(false)
 		setGameState(true)
+		trackEvent("game-start")
 		// console.log("handleLaunchGame was call")
 	}
 
 	function handleDisconnect(role: string){
 		// console.log("in handle Disconnect")
+		trackEvent("game-disconnect")
 		setSearching(false)
 		setDifficultyChoose(false)
 		setGameState(false)

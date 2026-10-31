@@ -1,3 +1,4 @@
+import { trackEvent } from "../../../lib/analytics"
 import {
 	ChangeEvent,
 	FormEvent,
@@ -61,6 +62,8 @@ function LockedInterface() {
 					'Authorization': `Bearer ${token}`
 				}
 			})
+
+			trackEvent("channel-join")
 
 			setUserAuthenticate((prevState: UserAuthenticate) => ({
 				...prevState,
